@@ -1,6 +1,6 @@
 #!/bin/bash
 highlight_matching_line() { grep --color -E ".*$1.*|\$"; }
-section() { echo "********************** $1 ****************************"; }
+section() { printf "\n********************** $1 ****************************\n"; }
 
 # all instances, filtering the RUNNING ones
 section "COMPUTE INSTANCES"
@@ -29,3 +29,7 @@ gsutil ls | highlight_matching_line gs
 section "BIGQUERY DATASETS"
 gcloud alpha bigquery datasets list --format='csv(datasetReference.datasetId)' | highlight_matching_line .
 # XXX we should probably add every bigquery table here
+#all app engine instances, filtering every line 
+section "APPENGINE INSTANCES"
+gcloud app instances list | highlight_matching_line .
+
